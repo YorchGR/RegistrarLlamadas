@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Registro de llamadas</string>
+    <string name="titulo_permiso">Permiso requerido</string>
+    <string name="mensaje_permiso">Faltan permisos por aceptar. Es necesario que aceptes todos los permisos para poder continuar.</string>
+    <string name="aceptar">Aceptar</string>
+    <string name="cancelar">Cancelar</string>
+    <string name="abrirContactos">Abrir contactos</string>
+    <string name="titulo_permiso_requerido">Permisos incompletos</string>
+    <string name="mensaje_permiso_requerido">Para el correcto funcionamiento de la aplicación, es obligatorio aceptar todos los permisos requeridos</string>
+    <string name="Salir">Salir</string>
+    <string name="cargar_archivo">Cargar archivo</string>
+    <string name="title_activity_settings">SettingsActivity</string>
+    <string name="menu_settings">Ajustes</string>
+    <string name="TituloArchivo">Archivos de registro de llamadas</string>
+    <string name="ListaDePreferencias">Elige uno de los dos archivos</string>
+</resources>

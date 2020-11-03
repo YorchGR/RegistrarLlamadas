@@ -1,0 +1,13 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory app:title="@string/TituloArchivo">
+        <ListPreference
+            android:defaultValue="true"
+            android:entries="@array/opciones"
+            android:entryValues="@array/opciones"
+            android:key="listPref"
+            android:title="@string/ListaDePreferencias" />
+    </PreferenceCategory>
+
+</PreferenceScreen>
