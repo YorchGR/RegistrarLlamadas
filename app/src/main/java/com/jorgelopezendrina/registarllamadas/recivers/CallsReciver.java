@@ -8,6 +8,8 @@ import android.net.Uri;
 import android.provider.ContactsContract;
 import android.telephony.TelephonyManager;
 import android.util.Log;
+
+import com.jorgelopezendrina.registarllamadas.MainActivity;
 import com.jorgelopezendrina.registarllamadas.archivos.Archivos;
 import com.jorgelopezendrina.registarllamadas.datos_llamada.Llamada;
 import java.text.SimpleDateFormat;
@@ -106,12 +108,12 @@ public class CallsReciver extends BroadcastReceiver {
             if (numero != null && nombre != null) {
                 Llamada llamadaSuelta = new Llamada(numero, nombre, fecha);
                 ArrayList<Llamada> listaLlamadas = ar.leerListadoLlamadasSerializado(cont);
-                listaLlamadas.add(llamadaSuelta);
-                Collections.sort(listaLlamadas);
                 ar.eliminaArchivo(cont);
+                listaLlamadas.add(llamadaSuelta);
+                ar.guardarListadoLlamadasSerializado(listaLlamadas,cont);
                 ar.guardaLlamadasOrdenado(listaLlamadas, cont);
                 ar.guardaLlamadasDesordenado(llamadaSuelta, cont);
-                ar.guardarListadoLlamadasSerializado(listaLlamadas,cont);
+
             }
         }
     }

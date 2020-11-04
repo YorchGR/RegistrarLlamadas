@@ -3,6 +3,10 @@ package com.jorgelopezendrina.registarllamadas.datos_llamada;
 import java.io.Serializable;
 import java.util.Objects;
 
+/**
+ * Clase POJO del tipo llamada que contiene los atributos de tipo String, numero, nombre y fecha.
+ * @author Jorge López Endrina.
+ */
 public class Llamada implements Comparable<Llamada>, Serializable {
 
     private String numero, nombre, fecha;

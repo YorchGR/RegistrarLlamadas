@@ -4,6 +4,9 @@ import android.util.Log;
 
 import java.util.Comparator;
 
+/**
+ * Clase LlamadaComparator donde se sobreescribe el método compare, de la clase Llamada
+ * */
 public class LlamadaComparator implements Comparator<Llamada> {
     @Override
     public int compare(Llamada ll1, Llamada ll2) {
