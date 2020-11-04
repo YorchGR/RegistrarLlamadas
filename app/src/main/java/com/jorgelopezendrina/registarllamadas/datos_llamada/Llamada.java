@@ -1,6 +1,7 @@
 package com.jorgelopezendrina.registarllamadas.datos_llamada;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Objects;
 
 /**
@@ -13,8 +14,8 @@ public class Llamada implements Comparable<Llamada>, Serializable {
     private String numero, nombre, fecha;
 
     public Llamada(String numero, String nombre, String fecha) {
-        this.numero = numero + "; ";
-        this.nombre = nombre + ";";
+        this.numero = numero;
+        this.nombre = nombre;
         this.fecha = fecha;
     }
 
@@ -47,6 +48,15 @@ public class Llamada implements Comparable<Llamada>, Serializable {
     }
 
     @Override
+    public int compareTo(Llamada llamada) {
+        int sort = this.nombre.compareTo(llamada.nombre);
+        if (sort == 0) {
+            sort = fecha.compareTo(llamada.fecha);
+        }
+        return sort;
+    }
+
+    @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
         if (!(obj instanceof Llamada)) return false;
@@ -60,16 +70,7 @@ public class Llamada implements Comparable<Llamada>, Serializable {
     }
 
     @Override
-    public int compareTo(Llamada llamada) {
-        int sort = this.nombre.compareTo(llamada.nombre);
-        if (sort == 0) {
-            sort = fecha.compareTo(llamada.fecha);
-        }
-        return sort;
-    }
-
-    @Override
     public String toString() {
-        return fecha + numero + nombre;
+        return fecha + numero +"; "+ nombre+";";
     }
 }

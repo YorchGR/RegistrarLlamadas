@@ -20,7 +20,7 @@
             android:parentActivityName=".MainActivity" />
 
         <receiver
-            android:name=".recivers.CallsReciver"
+            android:name=".recivers.EscuchaLlamadas"
             android:enabled="true"
             android:exported="true">
             <intent-filter>

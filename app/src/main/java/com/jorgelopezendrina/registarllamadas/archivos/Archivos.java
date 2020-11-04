@@ -27,30 +27,24 @@ import java.util.Collections;
 public class Archivos extends AppCompatActivity implements Serializable {
 
     /**
-     * Método encargado de eliminar el archivo, Llamadas.csv
-     */
-    public void eliminaArchivo(Context cont) {
-        File f = new File(cont.getExternalFilesDir(null), "Llamadas.csv");
-        if (f.exists()) {
-            f.delete();
+     * Método encargado de convertir un array de cadenas, en uno de tipo Llamada;
+     * */
+    public ArrayList<Llamada> convierteCadenas(ArrayList<String> listaLlamadasString) {
+        Llamada llamada;
+        String cadena;
+        ArrayList<Llamada> listaLlamadasObj = new ArrayList();
+        for (int i = 0; i < listaLlamadasString.size(); i++) {
+            cadena = listaLlamadasString.get(i);
+            String[] partes = cadena.split(" ");
+            if(partes.length ==8){
+                String num = partes[6].trim()+" ";
+                String nom = " "+partes[7].trim();
+                String fecha = partes[0].trim() +" "+ partes[1].trim() +" "+ partes[2].trim() +" "+ partes[3].trim() +" "+ partes[4].trim() +" "+ partes[5].trim()+" ";
+                llamada = new Llamada (num, nom, fecha);
+                listaLlamadasObj.add(llamada);
+            }
         }
-    }
-
-    /**
-     * Método encargado de guardar el array de llamadas en el archivo, listaLlamadasObj.obj
-     */
-    public void guardarListadoLlamadasSerializado(ArrayList<Llamada> listaLlamadas, Context cont) {
-        File f = new File(cont.getFilesDir(), "listaLlamadasObj.obj");
-        try {
-            FileOutputStream fos = new FileOutputStream(f);
-            ObjectOutputStream oos = new ObjectOutputStream(fos);
-            Collections.sort(listaLlamadas);
-            oos.writeObject(listaLlamadas);
-            oos.close();
-            fos.close();
-        } catch (IOException ioe) {
-            ioe.printStackTrace();
-        }
+        return listaLlamadasObj;
     }
 
     /**
@@ -78,7 +72,7 @@ public class Archivos extends AppCompatActivity implements Serializable {
         boolean result = true;
         File f = new File(cont.getExternalFilesDir(null), "Llamadas.csv");
         try {
-            FileWriter fw = new FileWriter(f, true);
+            FileWriter fw = new FileWriter(f);
             for (int i = 0; i < listaLlamadas.size(); i++) {
                 fw.write(listaLlamadas.get(i).toString() + "\n");
             }
@@ -104,35 +98,12 @@ public class Archivos extends AppCompatActivity implements Serializable {
                 f = new File(cont.getFilesDir(), "Historial.csv");
             }
             BufferedReader br = new BufferedReader(new FileReader(f));
-            if (orden) {
-                listaLlamadas.add("LLAMADAS.CSV\n");
-            } else {
-                listaLlamadas.add("HISTORIAL.CSV\n");
-            }
             while ((linea = br.readLine()) != null) {
                 listaLlamadas.add(linea);
             }
             br.close();
         } catch (IOException e) {
             e.printStackTrace();
-        }
-        return listaLlamadas;
-    }
-
-    /**
-     * Método encargado de leer el archivo que contiene el array de llamadas, listadoLlamadasObj.obj
-     */
-    public ArrayList<Llamada> leerListadoLlamadasSerializado(Context cont) {
-        ArrayList listaLlamadas = new ArrayList();
-        try {
-            File f = new File(cont.getFilesDir(), "listaLlamadasObj.obj");
-            FileInputStream fis = new FileInputStream(f);
-            ObjectInputStream ois = new ObjectInputStream(fis);
-            listaLlamadas = (ArrayList) ois.readObject();
-            ois.close();
-            fis.close();
-        } catch (IOException | ClassNotFoundException ioe) {
-            ioe.printStackTrace();
         }
         return listaLlamadas;
     }

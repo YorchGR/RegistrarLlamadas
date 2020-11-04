@@ -145,18 +145,6 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         editor.commit();
     }
 
-    /**
-     * Este método comprueba si existe el archivo con el array de datos serializados. De no ser así
-     * (normalmente ocurre al iniciarse por primera vez la aplicación), crea el archivo y le incluye
-     * un array vacío de datos.
-     */
-    private void inicializarArchivos() {
-        ArrayList<Llamada> aux = new ArrayList();
-        File f = new File(getApplicationContext().getFilesDir(), "listaLlamadasObj.dat");
-        if (!f.exists()) {
-            ar.guardarListadoLlamadasSerializado(aux, getApplicationContext());
-        }
-    }
 
     /**
      * Método encargado de inicializar diferentes variables de la clase. También llama al método
@@ -170,7 +158,6 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
             if (chequearPermisos()) {
                 cargaArchivo(true);
                 botonCargar();
-                inicializarArchivos();
             } else {
                 if (shouldShowRequestPermissionRationale(String.valueOf(PERMISOS_REQUERIDOS))) {
                     explicacionDetallada();
