@@ -5,6 +5,7 @@ import java.util.Objects;
 
 /**
  * Clase POJO del tipo llamada que contiene los atributos de tipo String, numero, nombre y fecha.
+ *
  * @author Jorge López Endrina.
  */
 public class Llamada implements Comparable<Llamada>, Serializable {
@@ -12,8 +13,8 @@ public class Llamada implements Comparable<Llamada>, Serializable {
     private String numero, nombre, fecha;
 
     public Llamada(String numero, String nombre, String fecha) {
-        this.numero = numero+"; ";
-        this.nombre = nombre+";";
+        this.numero = numero + "; ";
+        this.nombre = nombre + ";";
         this.fecha = fecha;
     }
 
@@ -64,7 +65,6 @@ public class Llamada implements Comparable<Llamada>, Serializable {
         if (sort == 0) {
             sort = fecha.compareTo(llamada.fecha);
         }
-
         return sort;
     }
 

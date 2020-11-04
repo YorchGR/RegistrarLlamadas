@@ -21,6 +21,7 @@ import java.util.Collections;
 
 /**
  * Clase que se ocupa de la gestión de los datos para su guardado o lectura.
+ *
  * @author Jorge López Endrina.
  */
 public class Archivos extends AppCompatActivity implements Serializable {
@@ -36,7 +37,7 @@ public class Archivos extends AppCompatActivity implements Serializable {
     }
 
     /**
-     *Método encargado de guardar el array de llamadas en el archivo, listaLlamadasObj.obj
+     * Método encargado de guardar el array de llamadas en el archivo, listaLlamadasObj.obj
      */
     public void guardarListadoLlamadasSerializado(ArrayList<Llamada> listaLlamadas, Context cont) {
         File f = new File(cont.getFilesDir(), "listaLlamadasObj.obj");
@@ -130,7 +131,6 @@ public class Archivos extends AppCompatActivity implements Serializable {
             listaLlamadas = (ArrayList) ois.readObject();
             ois.close();
             fis.close();
-
         } catch (IOException | ClassNotFoundException ioe) {
             ioe.printStackTrace();
         }

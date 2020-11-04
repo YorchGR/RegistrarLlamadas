@@ -6,15 +6,17 @@ import java.util.Comparator;
 
 /**
  * Clase LlamadaComparator donde se sobreescribe el método compare, de la clase Llamada
- * */
+ */
+
 public class LlamadaComparator implements Comparator<Llamada> {
     @Override
     public int compare(Llamada ll1, Llamada ll2) {
         int sort = ll1.getFecha().compareTo(ll2.getFecha());
-        if(sort == 0) {
+        if (sort == 0) {
             sort = ll1.getNumero().compareTo(ll2.getNumero());
-            if(sort == 0) {
-                sort = ll1.getNombre().compareTo(ll2.getNombre());;
+            if (sort == 0) {
+                sort = ll1.getNombre().compareTo(ll2.getNombre());
+                ;
             }
         }
         return sort;

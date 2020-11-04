@@ -15,12 +15,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.preference.PreferenceManager;
+
 import com.jorgelopezendrina.registarllamadas.ajustes.SettingsActivity;
 import com.jorgelopezendrina.registarllamadas.archivos.Archivos;
 import com.jorgelopezendrina.registarllamadas.datos_llamada.Llamada;
+
 import java.io.File;
 import java.util.ArrayList;
 
@@ -28,34 +31,32 @@ import java.util.ArrayList;
  * Clase Main de la app. Esta clase es la principal y es la encargada de comprobar los permisos,
  * atender a la gestión del botón de carga, comprobar las preferencias compartidas, etc.
  * Variables de la clase:
- *     SharedPreferences preferencias. Variable de la clase preferencias, encargada de guardar
- *     valores de preferencias compartidas
- *     static final int CODIGO_PERMISOS. Variable que contiene el request code de los permisos
- *     static final String[] PERMISOS_REQUERIDOS. Array con los permisos que se van a solicitar
- *     TextView tv_lista. Text view que mostrará el archivo con la lista de llamadas que se solicite
- *     Button bt. Botón encargado de llamar al método de carga de la lista de llamadas.
- *     Archivos ar. Objeto de la clase Archivos. Esta clase se encarga de manejar los datos, tanto
- *     para su lectura como para su escritura.
- *     boolean eleccion. Booleano usado para pasar la elección contraria a la que esté en
- *     preferencias, dandole sentido al botón, ya que carga la opción contraria a la de las opciones
- *     compartidas.
+ * SharedPreferences preferencias. Variable de la clase preferencias, encargada de guardar
+ * valores de preferencias compartidas
+ * static final int CODIGO_PERMISOS. Variable que contiene el request code de los permisos
+ * static final String[] PERMISOS_REQUERIDOS. Array con los permisos que se van a solicitar
+ * TextView tv_lista. Text view que mostrará el archivo con la lista de llamadas que se solicite
+ * Button bt. Botón encargado de llamar al método de carga de la lista de llamadas.
+ * Archivos ar. Objeto de la clase Archivos. Esta clase se encarga de manejar los datos, tanto
+ * para su lectura como para su escritura.
+ * boolean eleccion. Booleano usado para pasar la elección contraria a la que esté en
+ * preferencias, dandole sentido al botón, ya que carga la opción contraria a la de las opciones
+ * compartidas.
  *
  * @author Jorge López Endrina.
  */
-
 public class MainActivity extends AppCompatActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
-
     private SharedPreferences preferencias;
     private static final int CODIGO_PERMISOS = 888;
     private static final String[] PERMISOS_REQUERIDOS = new String[]{Manifest.permission.READ_PHONE_STATE, Manifest.permission.READ_CALL_LOG, Manifest.permission.READ_CONTACTS, Manifest.permission.WRITE_EXTERNAL_STORAGE};
     private TextView tv_lista;
     private Button bt;
     private Archivos ar = new Archivos();
-    private boolean eleccion=true;
+    private boolean eleccion = true;
 
     /**
-    *  Método que trata el listener del botón. Llama al método cargarArchivo.
-    * */
+     * Método que trata el listener del botón. Llama al método cargarArchivo.
+     */
     public void botonCargar() {
         bt.setOnClickListener(new View.OnClickListener() {
             @SuppressLint("SetTextI18n")
@@ -67,8 +68,8 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
     }
 
     /**
-     *  Método encargado de recibir la lista de llamadas y mostrarla en pantalla
-     * */
+     * Método encargado de recibir la lista de llamadas y mostrarla en pantalla
+     */
     private void cargaArchivo(boolean eleccion) {
         ArrayList<String> listado = ar.leerArchivo(eleccion, getApplicationContext());
         if (listado.isEmpty()) {
@@ -83,25 +84,25 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
     }
 
     /**
-     *  Método que trata carga los ajustes compartidos y le da el valor contrario a la variable
+     * Método que trata carga los ajustes compartidos y le da el valor contrario a la variable
      * booleana eleccion, para darle así, sentido al botón.
-     * */
+     */
     private void cargaEleccion() {
         String valor = "";
         valor = preferencias.getString("listPref", "listPref");
 
         if (valor.equalsIgnoreCase("Cargar archivo Llamadas.csv")) {
             cargaArchivo(true);
-            eleccion=false;
+            eleccion = false;
         } else if (valor.equalsIgnoreCase("Cargar archivo Historial.csv")) {
             cargaArchivo(false);
-            eleccion=true;
+            eleccion = true;
         }
     }
 
     /**
-     *  Método encargado de comprobar si se tienen los permisos requeridos
-     * */
+     * Método encargado de comprobar si se tienen los permisos requeridos
+     */
     @SuppressLint("NewApi")
     public boolean chequearPermisos() {
         int perUno = checkSelfPermission(PERMISOS_REQUERIDOS[0]);
@@ -113,8 +114,8 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
     }
 
     /**
-     *  Método encargado de mostrar de una u otra manera, el mensaje de petición de permisos.
-     * */
+     * Método encargado de mostrar de una u otra manera, el mensaje de petición de permisos.
+     */
     private void explicacionDetallada() {
         final AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
         builder.setTitle(R.string.titulo_permiso);
@@ -135,8 +136,8 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
     }
 
     /**
-     *  Método encargado de guardar los valores de las preferencias compartidas.
-     * */
+     * Método encargado de guardar los valores de las preferencias compartidas.
+     */
     private void guardaLaPreferencia() {
         SharedPreferences preferences = getSharedPreferences("credenciales", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
@@ -145,10 +146,10 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
     }
 
     /**
-     *  Este método comprueba si existe el archivo con el array de datos serializados. De no ser así
+     * Este método comprueba si existe el archivo con el array de datos serializados. De no ser así
      * (normalmente ocurre al iniciarse por primera vez la aplicación), crea el archivo y le incluye
      * un array vacío de datos.
-     * */
+     */
     private void inicializarArchivos() {
         ArrayList<Llamada> aux = new ArrayList();
         File f = new File(getApplicationContext().getFilesDir(), "listaLlamadasObj.dat");
@@ -161,7 +162,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
      * Método encargado de inicializar diferentes variables de la clase. También llama al método
      * encargado de comprobar los permisos y, de tenerlos, llama a los métodos de carga, de creación
      * de listener, preferencias e inicialización de archivos.
-     * */
+     */
     private void init() {
         tv_lista = findViewById(R.id.tv_lista);
         bt = findViewById(R.id.bt_carga);
@@ -186,17 +187,16 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
     /**
      * Método de llamada al activity del menú
-     * */
+     */
     private boolean lanzaActivitySettings() {
         Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
         startActivity(intent);
         return true;
-
     }
 
     /**
      * Método onCreate del ciclo de vida de la aplicación
-    * */
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -206,7 +206,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
     /**
      * Método onCreate del menú de opciones
-     * */
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu, menu);
@@ -215,7 +215,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
     /**
      * Método de selección de opciones del menú
-     * */
+     */
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
@@ -228,8 +228,8 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
     /**
      * Método de comprobación de los permisos requeridos. De no tener todos los permisos, reitera en
-    * su petición, saliendo de la aplicación de no tenerlos todos
-     * */
+     * su petición, saliendo de la aplicación de no tenerlos todos
+     */
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
         switch (requestCode) {
@@ -251,7 +251,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
     /**
      * Método onSharedPreferencChange
-     * */
+     */
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         String valor;
@@ -260,7 +260,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
     /**
      * Método encargado de pedir los permisos
-     * */
+     */
     @SuppressLint("NewApi")
     private void requestPermission() {
         requestPermissions(PERMISOS_REQUERIDOS, CODIGO_PERMISOS);
