@@ -22,9 +22,7 @@ import androidx.preference.PreferenceManager;
 
 import com.jorgelopezendrina.registarllamadas.ajustes.SettingsActivity;
 import com.jorgelopezendrina.registarllamadas.archivos.Archivos;
-import com.jorgelopezendrina.registarllamadas.datos_llamada.Llamada;
 
-import java.io.File;
 import java.util.ArrayList;
 
 /**
@@ -49,7 +47,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
     private SharedPreferences preferencias;
     private static final int CODIGO_PERMISOS = 888;
     private static final String[] PERMISOS_REQUERIDOS = new String[]{Manifest.permission.READ_PHONE_STATE, Manifest.permission.READ_CALL_LOG, Manifest.permission.READ_CONTACTS, Manifest.permission.WRITE_EXTERNAL_STORAGE};
-    private TextView tv_lista;
+    private TextView tv_lista, tv_tituloLista;
     private Button bt;
     private Archivos ar = new Archivos();
     private boolean eleccion = true;
@@ -75,6 +73,11 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         if (listado.isEmpty()) {
             tv_lista.setText("No hay llamadas registradas.");
         } else {
+            if (eleccion){
+                tv_tituloLista.setText("LLAMADAS.CSV");
+            }else{
+                tv_tituloLista.setText("HISTORIAL.CSV");
+            }
             StringBuilder aux = new StringBuilder();
             for (int i = 0; i < listado.size(); i++) {
                 aux.append(listado.get(i)).append("\n");
@@ -153,6 +156,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
      */
     private void init() {
         tv_lista = findViewById(R.id.tv_lista);
+        tv_tituloLista =findViewById(R.id.tv_titulo);
         bt = findViewById(R.id.bt_carga);
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
             if (chequearPermisos()) {

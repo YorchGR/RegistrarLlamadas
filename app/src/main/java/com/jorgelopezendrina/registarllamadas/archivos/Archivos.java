@@ -24,7 +24,7 @@ import java.util.Collections;
  *
  * @author Jorge López Endrina.
  */
-public class Archivos extends AppCompatActivity implements Serializable {
+public class Archivos extends AppCompatActivity{
 
     /**
      * Método encargado de convertir un array de cadenas, en uno de tipo Llamada;

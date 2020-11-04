@@ -9,7 +9,7 @@ import java.util.Objects;
  *
  * @author Jorge López Endrina.
  */
-public class Llamada implements Comparable<Llamada>, Serializable {
+public class Llamada implements Comparable<Llamada> {
 
     private String numero, nombre, fecha;
 
@@ -71,6 +71,6 @@ public class Llamada implements Comparable<Llamada>, Serializable {
 
     @Override
     public String toString() {
-        return fecha + numero +"; "+ nombre+";";
+        return fecha + numero +" "+ nombre;
     }
 }
