@@ -34,12 +34,25 @@ public class Archivos extends AppCompatActivity implements Serializable {
         return result;
     }
 
+    public void eliminaArchivo(Context cont){
+        File f = new File(cont.getExternalFilesDir(null), "Llamadas.csv");
+        if (f.exists()){
+            f.delete();
+        }
+    }
+
     //Llamadas.csv SE GUARDA ORDENADO
     public boolean guardaLlamadasOrdenado(ArrayList<Llamada> listaLlamadas , Context cont) {
         boolean result = true;
         File f = new File(cont.getExternalFilesDir(null), "Llamadas.csv");
+
+        Log.v("HOLA", "GUARDA ORDENADO");
+        for (int i = 0; i < listaLlamadas.size(); i++) {
+            Log.v("HOLA", listaLlamadas.get(i).toString());
+        }
+
         try {
-            FileWriter fw = new FileWriter(f, true);
+            FileWriter fw = new FileWriter(f,true);
             for (int i = 0; i < listaLlamadas.size(); i++) {
                 fw.write(listaLlamadas.get(i).toString() + "\n");
             }
@@ -105,11 +118,8 @@ public class Archivos extends AppCompatActivity implements Serializable {
             ois.close();
             fis.close();
 
-        } catch (IOException ioe) {
+        } catch (IOException | ClassNotFoundException ioe) {
             ioe.printStackTrace();
-        } catch (ClassNotFoundException c) {
-            System.out.println("Class not found");
-            c.printStackTrace();
         }
         Log.v("HOLA", "LEE SERIALIZABLE");
         for (int i = 0; i < listaLlamadas.size(); i++) {

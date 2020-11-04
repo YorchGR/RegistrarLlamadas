@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
     private Archivos ar = new Archivos();
     private boolean eleccion=true;
 
-    /*
+    /**
     *  Método que trata el listener del botón. Llama al método cargarArchivo.
     * */
     public void botonCargar() {
@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         });
     }
 
-    /*
+    /**
      *  Método encargado de recibir la lista de llamadas y mostrarla en pantalla
      * */
     private void cargaArchivo(boolean eleccion) {
@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         }
     }
 
-    /*
+    /**
      *  Método que trata carga los ajustes compartidos y le da el valor contrario a la variable
      * booleana eleccion, para darle así, sentido al botón.
      * */
@@ -99,7 +99,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         }
     }
 
-    /*
+    /**
      *  Método encargado de comprobar si se tienen los permisos requeridos
      * */
     @SuppressLint("NewApi")
@@ -112,7 +112,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
                 && perTres == PackageManager.PERMISSION_GRANTED;
     }
 
-    /*
+    /**
      *  Método encargado de mostrar de una u otra manera, el mensaje de petición de permisos.
      * */
     private void explicacionDetallada() {
@@ -134,7 +134,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         builder.show();
     }
 
-    /*
+    /**
      *  Método encargado de guardar los valores de las preferencias compartidas.
      * */
     private void guardaLaPreferencia() {
@@ -144,7 +144,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         editor.commit();
     }
 
-    /*
+    /**
      *  Este método comprueba si existe el archivo con el array de datos serializados. De no ser así
      * (normalmente ocurre al iniciarse por primera vez la aplicación), crea el archivo y le incluye
      * un array vacío de datos.
@@ -157,7 +157,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         }
     }
 
-    /*
+    /**
      * Método encargado de inicializar diferentes variables de la clase. También llama al método
      * encargado de comprobar los permisos y, de tenerlos, llama a los métodos de carga, de creación
      * de listener, preferencias e inicialización de archivos.
@@ -184,7 +184,9 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         cargaEleccion();
     }
 
-    /*Método de llamada al activity del menú*/
+    /**
+     * Método de llamada al activity del menú
+     * */
     private boolean lanzaActivitySettings() {
         Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
         startActivity(intent);
@@ -192,7 +194,9 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
     }
 
-    /*Método onCreate del ciclo de vida de la aplicación*/
+    /**
+     * Método onCreate del ciclo de vida de la aplicación
+    * */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -200,14 +204,18 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         init();
     }
 
-    /*Método onCreate del menú de opciones*/
+    /**
+     * Método onCreate del menú de opciones
+     * */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu, menu);
         return true;
     }
 
-    /*Método de selección de opciones del menú*/
+    /**
+     * Método de selección de opciones del menú
+     * */
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
@@ -216,11 +224,12 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
             default:
                 return super.onOptionsItemSelected(item);
         }
-
     }
 
-    /*Método de comprobación de los permisos requeridos. De no tener todos los permisos, reitera en
-    * su petición, saliendo de la aplicación de no tenerlos todos*/
+    /**
+     * Método de comprobación de los permisos requeridos. De no tener todos los permisos, reitera en
+    * su petición, saliendo de la aplicación de no tenerlos todos
+     * */
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
         switch (requestCode) {
@@ -240,14 +249,18 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         }
     }
 
-    /*Método onSharedPreferencChange*/
+    /**
+     * Método onSharedPreferencChange
+     * */
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         String valor;
         valor = sharedPreferences.getString(key, "na");
     }
 
-    /*Método encargado de pedir los permisos*/
+    /**
+     * Método encargado de pedir los permisos
+     * */
     @SuppressLint("NewApi")
     private void requestPermission() {
         requestPermissions(PERMISOS_REQUERIDOS, CODIGO_PERMISOS);
