@@ -1,5 +1,6 @@
 package com.jorgelopezendrina.registarllamadas.recivers;
 
+import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -30,6 +31,7 @@ public class EscuchaLlamadas extends BroadcastReceiver {
     /**
      * Método encargado de conseguir la fecha del sistema.
      */
+    @SuppressLint("SimpleDateFormat")
     private String consigueFecha() {
         String fecha;
         Calendar cal = Calendar.getInstance();
@@ -86,7 +88,7 @@ public class EscuchaLlamadas extends BroadcastReceiver {
      * objeto
      */
     private class Hilo extends Thread {
-        private Context context;
+            private Context context;
         private Intent intent;
         String nombre, numero, fecha;
         Archivos ar = new Archivos();
